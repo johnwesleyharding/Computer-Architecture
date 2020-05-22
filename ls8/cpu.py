@@ -39,7 +39,7 @@ class CPU:
             0b01101001: self._not,
             0b10101010: self._or,
             0b01000110: self.pop,
-#             'pra': self.pra,
+            0b01001000: self.pra,
             0b01000111: self.prn,
             0b01000101: self.push,
             0b00010001: self.ret,
@@ -102,11 +102,11 @@ class CPU:
 
     def hlt(self, reg_a, reg_b):
 
-        self.ram[self.pc] = 0b00000001
+        self.ir = 0b00000001
     
     def inc(self, reg_a, reg_b):
         
-        elf.reg[reg_a] += 1
+        self.reg[reg_a] += 1
 
     def iret(self, reg_a, reg_b):
 
@@ -165,6 +165,10 @@ class CPU:
 
         self.reg[reg_a] = self.ram[self.reg[7]]
         self.reg[7] += 0x0001
+    
+    def pra(self, reg_a, reg_b):
+        
+        print(chr(reg_a))
 
     def prn(self, reg_a, reg_b):
 
@@ -200,7 +204,7 @@ class CPU:
 
         self.pc = 0x0000
         self.ir = self.ram[self.pc]
-        i = 0
+#         i = 0
 
         while self.ir != 0b00000001:
             
